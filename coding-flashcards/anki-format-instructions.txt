@@ -1,0 +1,283 @@
+ANKI FLASHCARD FORMATTING INSTRUCTIONS
+
+Purpose
+These rules define the permitted formatting structure for coding-related Anki CSV flashcards.
+
+The goal is to create a clear visual hierarchy while keeping the CSV safe, simple, and reliable for Anki import.
+
+Core principles
+- Use basic Anki cards only.
+- Keep formatting minimal and consistent.
+- Use simple HTML wrappers only when they improve readability.
+- Do not use inline styling.
+- Do not use JavaScript.
+- Do not use tables.
+- Do not invent custom visual designs per card.
+- Prioritise correctness, clarity, and import safety over aesthetics.
+
+CSV format
+The final CSV must always use exactly three columns:
+"Front","Back","Tags"
+
+Every field must be wrapped in double quotes.
+Internal double quotes must be escaped by doubling them.
+Do not add extra columns unless explicitly requested.
+Do not include Markdown table formatting in the final CSV.
+
+Front field structure
+The front of the card may include:
+- A metadata row containing one card type label and usually one main technology label
+- The actual question or prompt beneath it
+
+The metadata row should be visually separated from the main question.
+The question should remain concise and testable.
+
+Visible card metadata
+Visible metadata is for quick recognition while reviewing. It should stay simple.
+
+Each card should normally show:
+- one card type label
+- one main technology label
+
+A second technology label may be used only when the card genuinely tests the interaction between two technologies.
+
+Do not include every related technology. Avoid visual clutter.
+
+Use one generic technology wrapper for visible labels, regardless of whether the item is technically a language, framework, tool, database, or platform.
+
+The precise category should be handled in the Tags column, not by visible wrapper type.
+
+Back field structure
+The back of the card may include:
+- The direct answer
+- A short explanation
+- A short example, where useful
+- A current-project specific context note, only for conceptual or architectural cards where it genuinely helps
+- A common mistake note, where useful
+- A warning note, where the command or operation may be destructive
+
+Syntax answers
+For syntax cards, place the exact syntax or command separately from the explanation.
+The syntax should be easy to visually identify.
+The explanation should be shorter and visually secondary.
+
+Concept answers
+For concept cards, keep the answer short and practical.
+Where useful, include one brief sentence explaining how the concept applies to the user's current project or context.
+Do not turn conceptual cards into long essays.
+
+Debugging cards
+Debugging cards should mainly train recognition of syntax mistakes, malformed commands, incorrect method calls, or broken framework conventions.
+Do not over-solve project logic bugs unless the user asks for that.
+
+Code completion cards
+Code completion cards should ask the user to reproduce one specific missing command, method, keyword, or syntax pattern.
+Avoid large multi-line completions unless the topic specifically requires them.
+
+Architecture cards
+Architecture cards should focus on practical project design reasoning.
+They should explain why a design choice makes sense, not just define terms abstractly.
+
+Warnings
+Include warning notes when covering destructive or risky commands, such as:
+- rm -rf
+- git reset --hard
+- git push --force
+- rails db:drop
+- deleting migrations incorrectly
+- overwriting files
+- dropping or truncating database tables
+
+Do not include warnings on harmless commands where they add noise.
+
+HTML rules
+Simple HTML is allowed inside CSV fields for structure and visual hierarchy.
+The HTML must be minimal and predictable.
+Use only simple block-level wrappers, span wrappers for compact metadata labels, and inline code formatting.
+Do not use inline styles.
+Do not use script tags.
+Do not use external CSS or external assets.
+Do not use tables.
+Do not use images.
+Do not use complex nested layouts.
+
+Allowed HTML patterns include:
+- A metadata wrapper for the visible labels
+- A wrapper for the card type label
+- One or two wrappers for visible technology labels
+- An optional wrapper for the subject area, only when it adds immediate review value
+- A wrapper for the main question
+- Use separate wrappers for code/command answers and prose answers. You can use both wrappers if relevant. 
+- A wrapper for explanations
+- A wrapper for examples
+- A wrapper for project context
+- A wrapper for common mistakes
+- A wrapper for warnings
+- Inline code formatting for commands, methods, filenames, and syntax
+- Preformatted code blocks for multi-line code only when necessary
+
+HTML wrapper formatting should follow the below convention.
+
+Metadata row:
+<div class="card-meta">...</div>
+
+Card type:
+<span class="card-type">[SYNTAX]</span>
+<span class="card-type">[CONCEPT]</span>
+<span class="card-type">[CODE COMPLETION]</span>
+<span class="card-type">[DEBUGGING]</span>
+<span class="card-type">[ARCHITECTURE]</span>
+
+Technology label examples:
+<span class="card-technology card-technology--ruby">Ruby</span>
+<span class="card-technology card-technology--rails">Rails</span>
+<span class="card-technology card-technology--activerecord">ActiveRecord</span>
+<span class="card-technology card-technology--javascript">JavaScript</span>
+<span class="card-technology card-technology--python">Python</span>
+<span class="card-technology card-technology--sql">SQL</span>
+<span class="card-technology card-technology--html">HTML</span>
+<span class="card-technology card-technology--css">CSS</span>
+<span class="card-technology card-technology--tailwind">Tailwind</span>
+<span class="card-technology card-technology--bash">Bash</span>
+<span class="card-technology card-technology--git">Git</span>
+<span class="card-technology card-technology--github">GitHub</span>
+<span class="card-technology card-technology--terminal">Terminal</span>
+<span class="card-technology card-technology--mapbox">Mapbox</span>
+<span class="card-technology card-technology--nokogiri">Nokogiri</span>
+<span class="card-technology card-technology--postgresql">PostgreSQL</span>
+<span class="card-technology card-technology--render">Render</span>
+<span class="card-technology card-technology--heroku">Heroku</span>
+<span class="card-technology card-technology--netlify">Netlify</span>
+<span class="card-technology card-technology--vercel">Vercel</span>
+<span class="card-technology card-technology--github-pages">GitHub Pages</span>
+<span class="card-technology card-technology--aws">AWS</span>
+<span class="card-technology card-technology--cloudflare">Cloudflare</span>
+
+Subject area, optional:
+<span class="subject">...</span>
+
+Main question:
+<div class="question">...</div>
+
+Direct code/syntax answer:
+<div class="answer-code"><code>...</code></div>
+
+Direct prose answer:
+<div class="answer-text">...</div>
+
+Mixed answer:
+<div class="answer-code"><code>git status</code></div>
+<div class="explanation">Shows the current state of the working directory and staging area.</div>
+
+Explanation:
+<div class="explanation">...</div>
+
+Example:
+<div class="example">...</div>
+
+Project context:
+<div class="context">...</div>
+
+Common mistake:
+<div class="common-mistake">...</div>
+
+Warning:
+<div class="warning">...</div>
+
+Typical front structure:
+<div class="card-meta">
+  <span class="card-type">[SYNTAX]</span>
+  <span class="card-technology card-technology--bash">Bash</span>
+</div>
+<div class="question">How do you print the current working directory in Bash?</div>
+
+Typical back structure:
+<div class="answer"><code>pwd</code></div>
+<div class="explanation">Prints the current working directory.</div>
+
+Do not deviate from the above class structure.
+Do not invent new visible label wrapper categories such as card-language, card-tool, card-framework, card-platform, or card-database.
+
+Tagging
+Tags should carry the main organisational burden.
+Visible card labels are for quick recognition while reviewing.
+Tags are for filtering, custom study, and long-term deck management.
+
+Use hierarchical tags separated with ::.
+
+Use precise category tags. Do not force every technology into language::.
+
+Language tags:
+language::ruby
+language::javascript
+language::python
+language::sql
+language::html
+language::css
+
+Framework/library tags:
+framework::rails
+framework::activerecord
+framework::tailwind
+framework::nokogiri
+
+Tool tags:
+tool::bash
+tool::git
+tool::github
+tool::terminal
+tool::mapbox
+tool::console
+
+Database tags:
+database::postgresql
+database::sqlite
+
+Platform tags:
+platform::render
+platform::heroku
+platform::netlify
+platform::vercel
+platform::github_pages
+platform::aws
+platform::cloudflare
+
+Card type tags:
+type::syntax
+type::concept
+type::debugging
+type::code_completion
+type::architecture
+
+Subject area tags:
+area::setup
+area::backend
+area::frontend
+area::database
+area::api
+area::scraping
+area::git
+area::deployment
+area::testing
+area::maps
+area::data
+
+Source/difficulty tags:
+difficulty::beginner
+difficulty::intermediate
+source::provided
+source::inferred
+
+Quality control
+Before finalising a CSV, check that:
+- Every card has exactly three fields.
+- Every field is quoted.
+- Internal quotes are escaped correctly.
+- The visible card type matches the type tag.
+- The visible technology label matches one relevant technology tag.
+- The syntax is correct.
+- The card tests one idea only.
+- The answer is not ambiguous.
+- The tags are relevant.
+- The formatting is consistent.
+- No unnecessary project assumptions have been introduced.
